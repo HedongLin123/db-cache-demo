@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itdl.mapper.DataCommonCacheMapper">
+    <delete id="deleteByCacheKey" parameterType="java.lang.String">
+        delete from data_common_cache where cache_key = #{cacheKey}
+    </delete>
+
+
+    <!--根据缓存key获取缓存信息，主要包含缓存ID和过期时间 结果为空表示没有数据-->
+    <select id="selectIdByKey" parameterType="string" resultType="com.itdl.entity.DataCommonCache">
+        select cache_id, cache_expire from data_common_cache where cache_key = #{cacheKey} limit 1
+    </select>
+
+    <!--包含缓存值-->
+    <select id="selectByKey" parameterType="string" resultType="com.itdl.entity.DataCommonCache">
+        select cache_id, cache_value, cache_expire from data_common_cache where cache_key = #{cacheKey} limit 1
+    </select>
+
+    <!--根据缓存的key获取缓存的值-->
+    <select id="selectValueByKey" parameterType="string" resultType="java.lang.String">
+        select cache_value from data_common_cache where cache_key = #{cacheKey} limit 1
+    </select>
+</mapper>
